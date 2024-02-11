@@ -32,7 +32,7 @@ st.divider()
 # get a random pokedex number
 random_number = str(np.random.randint(1, 151))
 random_number_2 = str(np.random.randint(1, 151))
-st.write(random_number)
+
 # fetch name of that random pokemon
 def get_random_pokemon_name() -> dict:
     try:
@@ -85,6 +85,10 @@ if pokemon_data and pokemon_data_2:
         annotated_text(
             (f'Pokemon Type: {pokemon_type}',"", colours[pokemon_type]),
         )
+        annotated_text(
+            (f'HP: {pokemon_data.get("stats")[0].get("base_stat")}',"", colours[pokemon_type])
+        )
+
 
     with col2:
         st.header(pokemon_data_2.get('name').capitalize())
@@ -94,7 +98,21 @@ if pokemon_data and pokemon_data_2:
         annotated_text(
             (f'Pokemon Type: {pokemon_type}',"", colours[pokemon_type]),
         )
-    
+        annotated_text(
+            (f'HP: {pokemon_data_2.get("stats")[0].get("base_stat")}',"", colours[pokemon_type])
+        )
 
+    
+comparison = {
+    pokemon_name: {
+        'height': pokemon_data.get('height'),
+        'hp': pokemon_data.get('stats')[0].get('base_stat'),
+    },
+    pokemon_name_2: {
+        'height': pokemon_data_2.get('height'),
+        'hp': pokemon_data_2.get('stats')[0].get('base_stat'),
+    },
+} 
+st.bar_chart(comparison, color=[colours[pokemon_data.get('types')[0].get('type').get('name')], colours[pokemon_data_2.get('types')[0].get('type').get('name')]])
 
 
